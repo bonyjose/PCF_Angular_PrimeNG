@@ -1,10 +1,12 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
+import './../PCFAngularElement/dist/PCFAngularElement/bundle';
 
 export class PCFAngularElementComponent implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
-	/**
-	 * Empty constructor.
-	 */
+	private _container: HTMLDivElement;
+	private _htmlElement: HTMLElement;
+	private _context: ComponentFramework.Context<IInputs>;
+	private _notifyOutputChanged: () => void;
 	constructor()
 	{
 
@@ -20,7 +22,12 @@ export class PCFAngularElementComponent implements ComponentFramework.StandardCo
 	 */
 	public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement)
 	{
-		// Add control initialization code
+		this._context = context;
+		this._container = container;
+		this._notifyOutputChanged = notifyOutputChanged;
+		this._htmlElement = document.createElement("app-pcf-component");
+		//Associate controls to container
+		container.appendChild(this._htmlElement);
 	}
 
 
